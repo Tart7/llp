@@ -45,7 +45,17 @@ play(flag, id, flags)                         // → { url, header, parse }
 FongMi 的配置里 `api` 直接指向 **js 的 raw 地址**（`type: 3` + `ext: {}`），
 不是 `csp_XXX` 类名——这点和其它 tvbox 分支不同。
 
-## 使用前必读的限制
+## 更新源之后必须做的事（缓存两层）
+
+1. **App 端**：FongMi 会把 JS 源码+字节码缓存在
+   `/data/data/com.fongmi.android.tv/cache/quickjs-bytecode/*.qbc`。
+   更新源后如果界面没变化，先**强制停止 App**再清这个目录（顺序不能反）。
+2. **GitHub raw CDN**：上传后约 5 分钟内仍返回旧文件。
+   `tvbox-fongmi.json` 里的 `api` 都带 `?v=<时间戳>`，更新源时**换一个新时间戳**即可穿透。
+3. 手机上没有 root 的话：设置 → 点播 → 重新填一次配置地址（会重新拉取），
+   或清除 App 数据后重填。
+
+## 已知限制
 
 **PornHub：媒体 token 绑定 IP**
 `phncdn.com` 的播放地址签名里带请求 IP。如果 `pornhub.com` 和 `phncdn.com`
