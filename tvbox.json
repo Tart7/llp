@@ -1,0 +1,22 @@
+{
+  "name": "LLAVP 自用源",
+  "sites": [
+    {
+      "key": "missav", "name": "MissAV", "type": 3, "api": "csp_MissAV",
+      "searchable": 1, "quickSearch": 1, "filterable": 1,
+      "ext": "https://raw.githubusercontent.com/Tart7/llp/main/MissAVSource.js"
+    },
+    {
+      "key": "pornhub", "name": "PornHub", "type": 3, "api": "csp_PornHub",
+      "searchable": 1, "quickSearch": 1, "filterable": 1,
+      "ext": "https://raw.githubusercontent.com/Tart7/llp/main/PornHubSource.js"
+    },
+    {
+      "key": "porn91", "name": "91porn", "type": 3, "api": "csp_Porn91",
+      "searchable": 1, "quickSearch": 1, "filterable": 0,
+      "ext": "https://raw.githubusercontent.com/Tart7/llp/main/Porn91Source.js"
+    }
+  ],
+  "parses": [],
+  "lives": []
+}
