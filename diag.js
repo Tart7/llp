@@ -3,7 +3,7 @@ export default {
     init(ext) {},
 
     home() {
-        return { class: [{ type_id: "diag", type_name: "诊断" }] };
+        return { class: [{ type_id: "diag", type_name: "HOMEOK" }] };
     },
 
     category(tid, pg) {
