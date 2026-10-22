@@ -65,14 +65,14 @@ function category(tid, pg, filter, extend) {
         url = rule.host + '/' + q + (q.indexOf('?') >= 0 ? '&' : '?') + 'page=' + (pg || 1);
     }
     var html = req(url, { headers: hdrs(url) });
-    var list = parseList(html);
+    var list = [{ vod_id: 'DIAG', vod_name: 'len=' + (html == null ? 'null' : html.length) + ' type=' + (typeof html), vod_pic: '', vod_remarks: String(html).slice(0, 60).replace(/[\r\n]/g, ' ') }];
     return { page: pg || 1, pagecount: 1, limit: 24, total: list.length, list: list };
 }
 
 function search(wd, quick, pg) {
     var url = rule.host + '/search_result.php?search_id=' + encodeURIComponent(wd) + '&page=' + (pg || 1);
     var html = req(url, { headers: hdrs(url) });
-    var list = parseList(html);
+    var list = [{ vod_id: 'DIAG', vod_name: 'len=' + (html == null ? 'null' : html.length) + ' type=' + (typeof html), vod_pic: '', vod_remarks: String(html).slice(0, 60).replace(/[\r\n]/g, ' ') }];
     return { page: pg || 1, pagecount: 1, limit: 24, total: list.length, list: list };
 }
 
