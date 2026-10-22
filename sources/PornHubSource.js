@@ -110,7 +110,7 @@ function category(tid, pg, filter, extend) {
             return s >= dur.min * 60 && s <= dur.max * 60;
         });
     }
-    return { page: pg || 1, pagecount: 1, limit: 60, total: list.length, list: list };
+    return { page: pg || 1, pagecount: 999, limit: 60, total: list.length, list: list };
 }
 
 function search(wd, quick, pg) {
@@ -118,7 +118,7 @@ function search(wd, quick, pg) {
     var url = rule.host + '/video/search?search=' + encodeURIComponent(wd) + '&page=' + (pg || 1);
     var html = req(url, { headers: hdrs(rule.host + '/') });
     var list = parseList(html);
-    return { page: pg || 1, pagecount: 1, limit: 60, total: list.length, list: list };
+    return { page: pg || 1, pagecount: 999, limit: 60, total: list.length, list: list };
 }
 
 // ---------------------------------------------------------------- 详情
@@ -238,13 +238,16 @@ function parseList(html) {
         var img = pick(block, /<img[^>]+src="([^"]+)"/);
         var dur = pick(block, /<var class="duration">([\s\S]*?)<\/var>/);
         var added = pick(block, /class="added">([\s\S]*?)<\/span>/);
+        // 短视频模式用：列表项自带 180P 预览 webm（有 hdnea 签名，需原样带上）
+        var preview = dec(pick(block, /data-mediabook="([^"]+)"/));
 
         out.push({
             vod_id: vkey,
             vod_name: dec(title).replace(/^\s+|\s+$/g, '') || vkey,
             vod_pic: img || '',
             vod_remarks: (dur || '').replace(/^\s+|\s+$/g, ''),
-            vod_tag: (added || '').replace(/^\s+|\s+$/g, '')
+            vod_tag: (added || '').replace(/^\s+|\s+$/g, ''),
+            vod_preview: preview || ''
         });
     }
     return out;
