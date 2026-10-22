@@ -1,0 +1,40 @@
+{
+  "name": "LLAVP 源（FongMi / QuickJS）",
+  "sites": [
+    {
+      "key": "missav",
+      "name": "MissAV",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/MissAV.js",
+      "ext": {},
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "timeout": 30
+    },
+    {
+      "key": "pornhub",
+      "name": "PornHub",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/PornHub.js",
+      "ext": {},
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "timeout": 30
+    },
+    {
+      "key": "porn91",
+      "name": "91porn",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/Porn91.js",
+      "ext": {},
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0,
+      "timeout": 30
+    }
+  ],
+  "parses": [],
+  "lives": []
+}
