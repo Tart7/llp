@@ -344,19 +344,21 @@ function pickM3U8(html) {
 }
 
 // ===== FongMi 导出 =====
+// 注意：FongMi QuickJS 的 Spider 侧是 (String) 强转返回值，
+// 所有方法必须返回 JSON 字符串，返回对象会 ClassCastException。
 export default {
     init: function (ext) { try { init(ext); } catch (e) {} },
-    home: function (filter) { return home(filter); },
-    homeVod: function () { return { list: [] } },
-    category: function (tid, pg, filter, extend) { return category(tid, pg, filter, extend); },
+    home: function (filter) { return JSON.stringify(home(filter) || {}); },
+    homeVod: function () { return JSON.stringify({ list: [] }); },
+    category: function (tid, pg, filter, extend) { return JSON.stringify(category(tid, pg, filter, extend) || {}); },
     detail: function (id) {
         var one = detail(id);
-        return { list: one ? [one] : [] };
+        return JSON.stringify({ list: one ? [one] : [] });
     },
-    search: function (wd, quick, pg) { return search(wd, quick, pg); },
+    search: function (wd, quick, pg) { return JSON.stringify(search(wd, quick, pg) || {}); },
     play: function (flag, id, vipFlags) {
-        var r = play(flag, id, vipFlags);
-        return { parse: 0, url: r.url, header: r.header || {} };
+        var r = play(flag, id, vipFlags) || {};
+        return JSON.stringify({ parse: 0, url: r.url, header: r.header || {} });
     },
     destroy: function () {}
 };
