@@ -91,11 +91,19 @@ function init() {
 // ---------------------------------------------------------------- 首页
 
 function home() {
+    // 站点真实分类：https://91porn.com/v.php?category=XX&viewtype=basic&page=N
+    // （原来的 index.php?min_duration=NN 站点已忽略参数 → 三个分类数据完全一样）
     var classes = [
-        { type_id: 'index.php', type_name: '首页·今日排行' },
-        { type_id: 'index.php?min_duration=10', type_name: '10分钟以上' },
-        { type_id: 'index.php?min_duration=20', type_name: '20分钟以上' },
-        { type_id: 'search:原创', type_name: '原创' },
+        { type_id: 'v.php?category=hot&viewtype=basic', type_name: '当前最热' },
+        { type_id: 'v.php?category=top&viewtype=basic', type_name: '本月最热' },
+        { type_id: 'v.php?category=long&viewtype=basic', type_name: '10分钟以上' },
+        { type_id: 'v.php?category=longer&viewtype=basic', type_name: '20分钟以上' },
+        { type_id: 'v.php?category=tf&viewtype=basic', type_name: '本月收藏' },
+        { type_id: 'v.php?category=rf&viewtype=basic', type_name: '最近加精' },
+        { type_id: 'v.php?category=hd&viewtype=basic', type_name: '高清' },
+        { type_id: 'v.php?category=md&viewtype=basic', type_name: '本月讨论' },
+        { type_id: 'v.php?category=mf&viewtype=basic', type_name: '收藏最多' },
+        { type_id: 'v.php?category=ori&viewtype=basic', type_name: '91原创' },
         { type_id: 'search:中文', type_name: '中文' }
     ];
     for (var i = 0; i < HOT.length; i++) {
