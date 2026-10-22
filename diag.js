@@ -1,21 +1,48 @@
-// 诊断源 v3：纯静态，不发网络请求 —— 验证 category() 是否被调用、返回格式是否被接受
+// 诊断源 v4：验证 net.req 的真实网络行为
 export default {
     init(ext) {},
 
     home() {
-        return { class: [{ type_id: "diag", type_name: "HOMEOK" }] };
+        return { class: [{ type_id: "diag", type_name: "网络测试" }] };
     },
 
     category(tid, pg) {
-        const list = [
-            { vod_id: "a1", vod_name: "① 静态行 A（无网络）", vod_pic: "", vod_remarks: "1" },
-            { vod_id: "a2", vod_name: "② 静态行 B（无网络）", vod_pic: "", vod_remarks: "2" },
-            { vod_id: "a3", vod_name: "③ 静态行 C（无网络）", vod_pic: "", vod_remarks: "3" }
-        ];
-        // 顺带把运行时信息塞进标题，一起显示
-        try { list[0].vod_name = "① net=" + typeof net + " req=" + (net ? typeof net.req : "-"); } catch (e) {}
-        try { list[1].vod_name = "② PC_UA=" + (typeof PC_UA === "undefined" ? "undef" : "ok"); } catch (e) {}
-        return { page: 1, pagecount: 1, limit: 50, total: list.length, list: list };
+        const rows = [];
+        const add = (name, value) => rows.push({
+            vod_id: "id" + rows.length,
+            vod_name: name + " → " + String(value).slice(0, 50),
+            vod_pic: "",
+            vod_remarks: "#" + (rows.length + 1)
+        });
+
+        const probe = (label, url, headers) => {
+            try {
+                const t0 = Date.now();
+                const r = net.req(url, { headers: headers || {}, timeout: 20000 });
+                const ms = Date.now() - t0;
+                if (r && typeof r === "object") {
+                    const c = r.content;
+                    const len = c == null ? 0 : (typeof c === "string" ? c.length : (c.byteLength !== undefined ? c.byteLength : -1));
+                    add(label + " code/ms", r.code + " / " + ms + "ms");
+                    add(label + " len/type", len + " / " + Object.prototype.toString.call(c).replace("[object ", "").replace("]", ""));
+                    if (r.error) add(label + " error", r.error);
+                    if (typeof c === "string" && c.length > 20) add(label + " 头20", c.slice(0, 20).replace(/\s+/g, " "));
+                } else {
+                    add(label + " 非对象", Object.prototype.toString.call(r));
+                }
+            } catch (e) {
+                add(label + " 抛异常", (e && e.message) || e);
+            }
+        };
+
+        const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+        probe("github", "https://raw.githubusercontent.com/Tart7/llp/main/README.md", {});
+        probe("missav", "https://missav.ai/dm817/cn/uncensored-leak?page=1", { "User-Agent": UA, "Referer": "https://missav.ai/" });
+        probe("pornhub", "https://jp.pornhub.com/video?c=99", { "User-Agent": UA });
+        probe("91porn", "https://91porn.com/index.php", { "User-Agent": UA });
+
+        return { page: 1, pagecount: 1, limit: 60, total: rows.length, list: rows };
     },
 
     detail(id) { return { list: [] }; },
