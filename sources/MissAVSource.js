@@ -62,14 +62,14 @@ function category(tid, pg, filter, extend) {
     var url = rule.host + '/' + tid + '?page=' + (pg || 1);
     var html = req(url, { headers: hdrs(rule.host + '/') });
     var list = parseList(html);
-    return { page: pg || 1, pagecount: 1, limit: 60, total: list.length, list: list };
+    return { page: pg || 1, pagecount: 999, limit: 60, total: list.length, list: list };
 }
 
 function search(wd, quick, pg) {
     var url = rule.host + '/cn/search/' + encodeURIComponent(wd) + '?page=' + (pg || 1);
     var html = req(url, { headers: hdrs(rule.host + '/') });
     var list = parseList(html);
-    return { page: pg || 1, pagecount: 1, limit: 60, total: list.length, list: list };
+    return { page: pg || 1, pagecount: 999, limit: 60, total: list.length, list: list };
 }
 
 // ---------------------------------------------------------------- 详情
