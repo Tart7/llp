@@ -31,12 +31,15 @@ function __utf8(bytes) {
 
 function req(url, options) {
     options = options || {};
+    // 关键：FongMi 的 net.req 传 body:'' 会直接失败（实测返回空、3ms 结束）
+    // 所以只在真有 body 时才带上 body，GET 也不传 method
+    var opts = { timeout: options.timeout || 20000 };
+    if (options.headers) opts.headers = options.headers;
+    var m = options.method ? String(options.method).toUpperCase() : 'GET';
+    if (m !== 'GET') opts.method = m;
+    if (options.body != null && String(options.body) !== '') opts.body = String(options.body);
     try {
-        var r = net.req(url, {
-            headers: options.headers || {},
-            method: options.method || 'GET',
-            body: options.body || ''
-        });
+        var r = net.req(url, opts);
         if (r == null) return '';
         if (typeof r === 'string') return r;
         var c = r.content;
