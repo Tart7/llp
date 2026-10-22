@@ -5,45 +5,34 @@
       "key": "missav",
       "name": "MissAV",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/MissAV.js",
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/MissAV.js?v=1792660017",
       "ext": {},
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "timeout": 30
+      "timeout": 60
     },
     {
       "key": "pornhub",
       "name": "PornHub",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/PornHub.js",
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/PornHub.js?v=1792660017",
       "ext": {},
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
-      "timeout": 30
+      "timeout": 60
     },
     {
       "key": "porn91",
       "name": "91porn",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/Porn91.js",
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/fongmi/Porn91.js?v=1792660017",
       "ext": {},
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
-      "timeout": 30
-    },
-    {
-      "key": "diag",
-      "name": "诊断",
-      "type": 3,
-      "api": "https://raw.githubusercontent.com/Tart7/llp/main/diag.js",
-      "ext": {},
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0,
-      "timeout": 30
+      "timeout": 60
     }
   ],
   "parses": [],
