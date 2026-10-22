@@ -173,7 +173,8 @@ function detail(id) {
         vod_year: '',
         type_name: '',
         vod_play_from: lines.length ? 'PornHub' : '',
-        vod_play_url: lines.join('###'),
+        // 注意：FongMi 按单个 # 拆分集数，用 ### 会拆出一堆空条目（画质列表里冒出 02/03 这种序号）
+        vod_play_url: lines.join('#'),
         _hls: base || '',
         _page: page
     };
