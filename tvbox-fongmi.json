@@ -33,6 +33,17 @@
       "quickSearch": 1,
       "filterable": 0,
       "timeout": 30
+    },
+    {
+      "key": "diag",
+      "name": "诊断",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/diag.js",
+      "ext": {},
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0,
+      "timeout": 30
     }
   ],
   "parses": [],
