@@ -115,24 +115,9 @@ function category(tid, pg, filter, extend) {
     } else {
         url = rule.host + '/' + q + (q.indexOf('?') >= 0 ? '&' : '?') + 'page=' + (pg || 1);
     }
-    var info = [];
-    // 探测2：已知可达 URL（GitHub raw）
-    try {
-        var g = net.req('https://raw.githubusercontent.com/Tart7/llp/main/tvbox-fongmi.json', { timeout: 20000 });
-        info.push('github code=' + (g && g.code) + ' clen=' + (g && g.content != null ? String(g.content).length : 'null'));
-    } catch (e2) { info.push('github EX:' + (e2 && e2.message)); }
-    // 探测1：91porn 原请求
-    try {
-        var r = net.req(url, { timeout: 20000, headers: hdrs(url) });
-        if (r == null) info.push('91: r==null');
-        else if (typeof r === 'string') info.push('91: r=string len=' + r.length);
-        else {
-            info.push('91: code=' + r.code + ' ctype=' + (typeof r.content) + ' clen=' + (r.content == null ? 'null' : String(r.content).length));
-            if (r.error) info.push('91: err=' + r.error);
-        }
-    } catch (e1) { info.push('91: EX:' + (e1 && e1.message ? e1.message : e1)); }
-    var list = info.map(function (t) { return { vod_id: 'DIAG', vod_name: t, vod_pic: '', vod_remarks: '' }; });
-    return { page: pg || 1, pagecount: 1, limit: 24, total: list.length, list: list };
+    var html = req(url, { headers: hdrs(url) });
+    var list = parseList(html);
+return { page: pg || 1, pagecount: 1, limit: 24, total: list.length, list: list };
 }
 
 function search(wd, quick, pg) {
