@@ -5,7 +5,7 @@
       "key": "diag",
       "name": "诊断",
       "type": 3,
-      "api": "https://raw.githubusercontent.com/Tart7/llp/main/diag.js",
+      "api": "https://raw.githubusercontent.com/Tart7/llp/main/diag.js?v=1792659665",
       "ext": {},
       "searchable": 0,
       "quickSearch": 0,
